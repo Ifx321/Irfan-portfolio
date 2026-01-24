@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from "react";
 import { ChevronDown } from "lucide-react";
 import { motion } from "framer-motion";
+import profileImg from "../assets/profile/irfan-hero.png";
 
 // BlurText animation component
 interface BlurTextProps {
@@ -103,7 +104,7 @@ export const LandingHero = () => {
               className="w-[85px] h-[135px] sm:w-[125px] sm:h-[195px] md:w-[160px] md:h-[250px] lg:w-[190px] lg:h-[300px] rounded-full overflow-hidden shadow-2xl border-2 border-[#C3E41D]/20 pointer-events-auto cursor-pointer hover:scale-110 transition-transform duration-500"
             >
               <img
-                src="/src/assets/profile/irfan-hero.png"
+                src={profileImg}
                 alt="Irfan Salim"
                 className="w-full h-full object-cover"
               />
