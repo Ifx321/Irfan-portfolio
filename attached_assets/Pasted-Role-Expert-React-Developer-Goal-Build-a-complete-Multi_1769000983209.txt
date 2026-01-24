@@ -1,0 +1,91 @@
+Role: Expert React Developer Goal: Build a complete Multi-Page Portfolio Application for a Data Analyst named Irfan Salim. Tech Stack: React (Vite), Tailwind CSS, Framer Motion, Lucide React, React Router DOM (react-router-dom).
+
+Design System:
+
+Theme: Dark Mode (bg-zinc-950).
+
+Aesthetic: "Liquid Glass" (Glassmorphism). Use bg-zinc-900/40 backdrop-blur-xl border border-white/10 for all cards and sidebars.
+
+Background: A persistent interactive Pixel Trail effect behind everything.
+
+Interaction: When hovering over the background pixels, they must flash Random Neon Colors (not just one color).
+
+Step 1: Install Dependencies Install framer-motion, lucide-react, clsx, tailwind-merge, and react-router-dom.
+
+Step 2: Create the Components
+
+PixelTrail.jsx (Rainbow Version):
+
+Create a grid of pixels covering the screen.
+
+Crucial Logic: Inside the PixelDot component, define an array of neon colors: ['bg-red-500', 'bg-cyan-500', 'bg-purple-500', 'bg-green-500', 'bg-pink-500', 'bg-yellow-400'].
+
+On mouseEnter, pick a random color from that array and set it as the active class for the pixel before fading it out.
+
+This ensures a "confetti" or "rainbow" effect on hover.
+
+ParticleButton.jsx: A button that emits particle sparks when clicked.
+
+Layout.jsx:
+
+Wraps the entire app.
+
+Contains the PixelTrail in the background (z-0, pointer-events-auto for pixels).
+
+Contains a Sidebar (z-20) with links to: Home, Experience, Projects, Skills, Education.
+
+Sidebar must have a "Download CV" button at the bottom.
+
+Step 3: Create the Pages (Populate with this EXACT Data)
+
+Home.jsx:
+
+Headline: "Data Analyst. Bridging financial principles with technical solutions."
+
+Stats Cards: "$65M Revenue Processed", "88k+ Records Analyzed".
+
+Experience.jsx:
+
+Role: Data Analyst Intern @ Asquare Technologies (Kochi, India).
+
+Dates: June 2025 – Nov 2025.
+
+Bullets:
+
+Used Python (Pandas) and SQL to clean raw datasets and fix reporting errors.
+
+Analyzed sales data to find high-performing regions and product trends.
+
+Created interactive Power BI dashboards for non-technical stakeholders.
+
+Translated technical findings into actionable executive summaries.
+
+Projects.jsx: (Use a Grid Layout)
+
+Project 1: E-Commerce Sales Analysis (Python, Plotly).
+
+"Processed 88,000+ order records ($65.2M revenue)."
+
+"Identified a customer satisfaction gap (3.5/5 rating)."
+
+"Identified Oceania and Sports as primary revenue drivers."
+
+Project 2: Deforestation Analysis (Power BI, DAX).
+
+"Architected a Star Schema data model from multiple sources."
+
+"Revealed that Agriculture accounts for over 86% of total tree loss."
+
+Skills.jsx:
+
+Technical: Python, SQL, Power BI, Excel, Google BigQuery, Pandas, NumPy.
+
+Certifications: Advanced SQL (Kaggle), Data Visualization (Kaggle), Pandas (Kaggle).
+
+Education.jsx:
+
+Degree: Bachelor of Commerce (B.Com).
+
+School: Kerala University (June 2021 – March 2024).
+
+Step 4: Router Setup (App.jsx) Set up BrowserRouter. Use the Layout component to wrap Routes. Define paths for /, /experience, /projects, /skills, and /education

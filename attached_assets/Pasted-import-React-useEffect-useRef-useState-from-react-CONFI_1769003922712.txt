@@ -1,0 +1,127 @@
+import React, { useEffect, useRef, useState } from 'react';
+
+// CONFIG: Neon colors for the animation
+const NEON_COLORS = [
+  'bg-red-500',
+  'bg-cyan-500',
+  'bg-purple-500',
+  'bg-green-500',
+  'bg-pink-500',
+  'bg-yellow-400',
+];
+
+interface PixelTrailProps {
+  pixelSize?: number;
+  fadeDuration?: number;
+  className?: string;
+}
+
+export const PixelTrail: React.FC<PixelTrailProps> = ({
+  pixelSize = 40, 
+  fadeDuration = 600,
+  className = "",
+}) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  // 1. GET SCREEN DIMENSIONS (Safe Fallback Logic)
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        setDimensions({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        });
+      } else {
+        // Fallback to window size if the container isn't ready yet
+        setDimensions({
+          width: window.innerWidth,
+          height: window.innerHeight
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  const [pixels, setPixels] = useState<{ [key: string]: { time: number; color: string } }>({});
+
+  // 2. CALCULATE GRID
+  const width = dimensions.width || (typeof window !== 'undefined' ? window.innerWidth : 1000);
+  const height = dimensions.height || (typeof window !== 'undefined' ? window.innerHeight : 800);
+  const columns = Math.ceil(width / pixelSize);
+  const rows = Math.ceil(height / pixelSize);
+
+  // 3. MOUSE HANDLER
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const col = Math.floor(x / pixelSize);
+    const row = Math.floor(y / pixelSize);
+    const key = `${col}-${row}`;
+
+    const randomColor = NEON_COLORS[Math.floor(Math.random() * NEON_COLORS.length)];
+
+    setPixels((prev) => ({
+      ...prev,
+      [key]: { time: Date.now(), color: randomColor },
+    }));
+  };
+
+  // 4. CLEANUP LOOP (Fades pixels out)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = Date.now();
+      setPixels((prev) => {
+        const next = { ...prev };
+        let changed = false;
+        for (const key in next) {
+          if (now - next[key].time > fadeDuration) {
+            delete next[key];
+            changed = true;
+          }
+        }
+        return changed ? next : prev;
+      });
+    }, 50);
+    return () => clearInterval(interval);
+  }, [fadeDuration]);
+
+  return (
+    <div
+      ref={containerRef}
+      // We removed 'cn' and used standard string combination to prevent errors
+      className={`grid w-full h-full absolute inset-0 pointer-events-auto ${className}`}
+      style={{
+        gridTemplateColumns: `repeat(${columns}, ${pixelSize}px)`,
+        gridTemplateRows: `repeat(${rows}, ${pixelSize}px)`,
+      }}
+      onMouseMove={handleMouseMove}
+    >
+      {Array.from({ length: columns * rows }).map((_, i) => {
+        const col = i % columns;
+        const row = Math.floor(i / columns);
+        const key = `${col}-${row}`;
+        const activeData = pixels[key];
+        
+        return (
+          <div
+            key={key}
+            className={`transition-opacity duration-500 ${
+              activeData ? activeData.color : "bg-transparent"
+            } ${
+              activeData ? "opacity-100" : "opacity-0"
+            }`}
+            style={{ width: pixelSize, height: pixelSize }}
+          />
+        );
+      })}
+    </div>
+  );
+};

@@ -1,0 +1,71 @@
+run = [
+    "deno",
+    "run",
+    "--lock=lock.json",
+    "--lock-write",
+    "--allow-all",
+    "index.ts"
+]
+
+hidden = [".deno"]
+
+entrypoint = "index.ts"
+modules = ["nodejs-22"]
+
+[languages.deno]
+pattern = "**/*.{ts,js}"
+[languages.deno.languageServer]
+start = ["deno", "lsp"]
+[languages.deno.languageServer.initializationOptions]
+enable = true
+lint = true
+
+[env]
+DENO_DIR = "/home/runner/${REPL_SLUG}/.deno"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["deno", "run", "--lock=lock.json", "--allow-all index.ts"]
+deploymentTarget = "cloudrun"
+ignorePorts = false
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+
+[[ports]]
+localPort = 5000
+externalPort = 80
+
+[[ports]]
+localPort = 5001
+externalPort = 3000
+
+[agent]
+expertMode = true
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "dev-server"
+
+[[workflows.workflow]]
+name = "dev-server"
+author = "agent"
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev -- --host 0.0.0.0 --port 5000"
+waitForPort = 5000
