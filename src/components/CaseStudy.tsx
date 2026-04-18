@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PixelTrail } from './PixelTrail';
+
 import { TextGlitch } from './TextGlitch';
 import { ArrowLeft, ExternalLink} from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -53,11 +53,7 @@ export const CaseStudy = ({
   return (
     <div className="relative min-h-screen py-12 space-y-12">
 
-      <PixelTrail 
-        pixelSize={24}
-        fadeDuration={1000}
-        pixelClassName="bg-white/5 border-[0.5px] border-white/10"
-      />
+
       
       <Link 
         to="/projects"

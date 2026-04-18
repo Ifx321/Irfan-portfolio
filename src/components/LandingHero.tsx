@@ -72,9 +72,9 @@ const BlurText: React.FC<BlurTextProps> = ({
 
 export const LandingHero = () => {
   return (
-    <section className="relative h-screen flex flex-col items-center justify-center bg-zinc-950 overflow-hidden">
+    <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Centered Main Name */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full px-4 z-10">
+      <div className="relative w-full px-4">
         <div className="relative text-center">
           <div className="flex flex-col items-center gap-2">
             <BlurText
@@ -114,7 +114,7 @@ export const LandingHero = () => {
       </div>
 
       {/* Tagline */}
-      <div className="absolute bottom-8 sm:bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 w-full px-6 z-10">
+      <div className="absolute bottom-8 sm:bottom-10 md:bottom-12 left-1/2 -translate-x-1/2 w-full px-6">
         <div className="flex justify-center">
           <BlurText
             text="Transforming data into business intelligence."
@@ -133,4 +133,4 @@ export const LandingHero = () => {
       </div>
     </section>
   );
-};
+};

@@ -2,7 +2,6 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { PixelTrail } from '../components/PixelTrail';
 import { TextGlitch } from '../components/TextGlitch';
 import { ParticleButton } from '../components/ParticleButton';
 import { LandingHero } from '../components/LandingHero';
@@ -14,11 +13,7 @@ export const Home = () => {
     <div className="flex flex-col">
       <LandingHero />
       <div className="relative space-y-12 py-12 px-4 md:px-8 max-w-7xl mx-auto">
-        <PixelTrail 
-          pixelSize={24}
-          fadeDuration={1000}
-          pixelClassName="bg-white/5 border-[0.5px] border-white/10"
-        />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

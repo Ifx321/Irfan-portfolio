@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TextGlitch } from '../components/TextGlitch';
-import { PixelTrail } from '../components/PixelTrail';
+import { PageContainer } from '../components/PageContainer';
+
 import { NextNavButton } from '../components/NextNavButton';   // ✅ ADDED
 
 import ecommerceThumb from '../assets/projects/ecommerce/thumb.jpg';
@@ -34,13 +35,10 @@ const projects = [
 
 export const Projects = () => {
   return (
-    <div className="relative space-y-12 py-12">
+    <PageContainer>
+      <div className="relative space-y-12">
       
-      <PixelTrail 
-        pixelSize={24}
-        fadeDuration={1000}
-        pixelClassName="bg-white/5 border-[0.5px] border-white/10"
-      />
+
 
       <TextGlitch 
         text="Key Projects" 
@@ -88,6 +86,7 @@ export const Projects = () => {
       {/* NEXT PAGE NAVIGATION */}
       <NextNavButton to="/experience" label="View Experience" />
 
-    </div>
+      </div>
+    </PageContainer>
   );
 };

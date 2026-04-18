@@ -1,17 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TextGlitch } from '../components/TextGlitch';
-import { PixelTrail } from '../components/PixelTrail';
+import { PageContainer } from '../components/PageContainer';
+
 import { NextNavButton } from '../components/NextNavButton';  // ✅ FIXED IMPORT
 
 export const Education = () => {
   return (
-    <div className="relative space-y-12 py-12">
-      <PixelTrail 
-        pixelSize={24}
-        fadeDuration={1000}
-        pixelClassName="bg-white/5 border-[0.5px] border-white/10"
-      />
+    <PageContainer>
+      <div className="relative space-y-12">
+
 
       <TextGlitch 
         text="Education" 
@@ -54,6 +52,7 @@ export const Education = () => {
       {/* 🔥 NEXT PAGE NAVIGATION */}
       <NextNavButton to="/contact" label="View Contact" />
 
-    </div>
+      </div>
+    </PageContainer>
   );
 };
